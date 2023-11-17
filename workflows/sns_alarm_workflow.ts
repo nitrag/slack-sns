@@ -17,7 +17,7 @@ const SNSAlarmWorkflow = DefineWorkflow({
     properties: {
       message: {
         type: Schema.types.string,
-        description: "The raw message (JSON) payload received from AWS Cloudwatch Alarm via SNS"
+        description: "The Message payload received from AWS Cloudwatch Alarm via SNS"
       },
       subscribeUrl: {
         type: Schema.types.string,
@@ -34,7 +34,7 @@ const transformFunctionStep = SNSAlarmWorkflow.addStep(
   SNSTransformFunctionDefinition,
   {
     message: SNSAlarmWorkflow.inputs.message,
-    subscribeUrl: SNSAlarmWorkflow.inputs.subscribeUrl,
+    subscribeUrl: SNSAlarmWorkflow.inputs.subscribeUrl
   },
 );
 

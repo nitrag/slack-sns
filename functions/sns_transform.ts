@@ -20,7 +20,7 @@ export const SNSTransformFunctionDefinition = DefineFunction({
       subscribeUrl: {
         type: Schema.types.string,
         description: "URL to acknowledge a newly created SNS Subscription",
-      },
+      }
     },
     required: ["message"],
   },
@@ -38,11 +38,17 @@ export const SNSTransformFunctionDefinition = DefineFunction({
 export default SlackFunction(
   SNSTransformFunctionDefinition,
   async ({ inputs }) => {
+    console.log(inputs);
     const { message, subscribeUrl } = inputs;
     if (subscribeUrl) {
       console.log(`Activating SNS Subscription: ${subscribeUrl}`);
-      await fetch(subscribeUrl);
-      return { outputs: { channelResponse: "SNS Subscription Activated!" } };
+      try {
+        await fetch(subscribeUrl);
+        return { outputs: { channelResponse: "SNS Subscription Activated!" } };
+      } catch (error) {
+        console.log(`Error activating SNS Subscription: ${error}`);
+        return { outputs: { channelResponse: `Error activating SNS Subscription, here is the URL: ${subscribeUrl}` } };
+      }      
     }
     const payload = typeof message === "string" ? JSON.parse(message) : message;
     const { AlarmName, OldStateValue, NewStateValue, NewStateReason } = payload;

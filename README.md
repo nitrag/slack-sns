@@ -4,8 +4,8 @@ This automation will provide a Webhook (HTTPS URL) which you can configure a SNS
 with, allowing Cloudwatch Alarms to be posted to your Slack Channel in a human
 readable format.
 
-*Please note that the features in this project requires that the workspace be part of
-[a Slack paid plan](https://slack.com/pricing).*
+_Please note that the features in this project requires that the workspace be part of
+[a Slack paid plan](https://slack.com/pricing)._
 
 ---
 
